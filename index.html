@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Expense Tracker</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body class="bg-gray-100 min-h-screen">
+        <div class="container mx-auto px-4 py-8">
+            <div class="max-w-6xl mx-auto bg-white rounded-lg shadow-md p-6">
+                <h1
+                    class="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">
+                    Expense Tracker
+                </h1>
+
+                <!-- Main Content Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Left Column - Controls -->
+                    <div class="lg:col-span-1">
+                        <!-- Budget Limit Section -->
+                        <div class="mb-6 bg-blue-50 p-4 rounded-xl">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-sm font-medium text-gray-700"
+                                    >Monthly Limit (₹)</label
+                                >
+                                <div class="flex gap-2">
+                                    <input
+                                        type="number"
+                                        id="limitInput"
+                                        placeholder="Enter limit"
+                                        class="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-blue-500" />
+                                    <button
+                                        onclick="setLimit()"
+                                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                        Set
+                                    </button>
+                                </div>
+                                <div
+                                    id="limitStatus"
+                                    class="text-sm mt-2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Add/Edit Expense Form -->
+                        <form
+                            id="expenseForm"
+                            class="mb-6 bg-green-50 p-4 rounded-xl">
+                            <div class="space-y-3">
+                                <div>
+                                    <label
+                                        class="text-sm font-medium text-gray-700"
+                                        >Expense Name</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="expenseName"
+                                        placeholder="Dinner"
+                                        class="w-full p-2 border rounded-lg mt-1 focus:ring-2 focus:ring-green-500"
+                                        required />
+                                </div>
+                                <div>
+                                    <label
+                                        class="text-sm font-medium text-gray-700"
+                                        >Amount (₹)</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="expenseAmount"
+                                        placeholder="500"
+                                        class="w-full p-2 border rounded-lg mt-1 focus:ring-2 focus:ring-green-500"
+                                        required />
+                                </div>
+                                <div>
+                                    <label
+                                        class="text-sm font-medium text-gray-700"
+                                        >Date</label
+                                    >
+                                    <input
+                                        type="date"
+                                        id="expenseDate"
+                                        class="w-full p-2 border rounded-lg mt-1 focus:ring-2 focus:ring-green-500"
+                                        required />
+                                </div>
+                                <div class="flex gap-2">
+                                    <button
+                                        type="submit"
+                                        class="flex-1 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                        Add Expense
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onclick="cancelEdit()"
+                                        id="cancelEditBtn"
+                                        class="hidden bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Right Column - Chart and Expenses -->
+                    <div class="lg:col-span-2">
+                        <!-- Chart Section -->
+                        <div class="mb-6 bg-white p-4 rounded-xl border">
+                            <canvas id="expenseChart"></canvas>
+                        </div>
+                        <!-- Export Controls -->
+                        <div
+                            class="bg-purple-100 p-4 rounded-xl space-y-2 mb-4 text-right">
+                            <button
+                                onclick="exportExpenses()"
+                                class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                                Export Expenses
+                            </button>
+                        </div>
+                        <!-- Expenses List -->
+                        <div class="bg-gray-100 p-4 rounded-xl">
+                            <h2 class="text-lg font-semibold mb-4">
+                                Recent Expenses
+                            </h2>
+                            <div
+                                id="expensesList"
+                                class="space-y-2 max-h-96 overflow-y-auto pr-2">
+                                <!-- Expenses will be loaded here -->
+                            </div>
+                        </div>
+                        <!-- Reset Controls -->
+                        <div
+                            class="bg-red-100 p-4 rounded-xl space-y-2 mt-4 text-right">
+                            <button
+                                onclick="resetAll()"
+                                class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                Reset All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
